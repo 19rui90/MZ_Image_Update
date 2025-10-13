@@ -262,9 +262,9 @@ def tarefa_diaria():
 
 # Agendamento diário
 schedule.every().day.at("10:00").do(tarefa_diaria)
+enviar_telegram_mensagem("🚀 Script iniciado no Render e pronto para tirar screenshots diárias.")
 print("⏳ Script iniciado. Vai tirar um screenshot por dia.")
-asyncio.run(tirar_screenshot())
-
 while True:
     schedule.run_pending()
     time.sleep(60)
+
