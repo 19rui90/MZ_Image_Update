@@ -1,0 +1,26 @@
+name: Executar script de screenshot diariamente
+
+on:
+  schedule:
+    - cron: "30 17 * * *"  # todos os dias às 17:30 UTC (~18:30 em Portugal)
+  workflow_dispatch:        # permite correr manualmente no GitHub Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Python e dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Executar script
+        run: python main.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
