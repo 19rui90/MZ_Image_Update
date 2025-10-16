@@ -4,10 +4,11 @@ import schedule
 from datetime import datetime
 from playwright.async_api import async_playwright
 import requests
+import os
 
 # === TELEGRAM CONFIG ===
-TELEGRAM_TOKEN = "8157004409:AAEm_d_ov9fDd5eUMKGFUURbEnR-jHzpxLg"
-CHAT_ID = "919180273"
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def enviar_telegram_mensagem(texto: str):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
