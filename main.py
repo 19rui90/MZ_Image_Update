@@ -6,6 +6,27 @@ from playwright.async_api import async_playwright
 import requests
 import os
 
+# ===============================================================
+# SERVIDOR FLASK PARA O RENDER + CRON-JOB.ORG
+# ===============================================================
+from flask import Flask
+import threading
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "✅ Screenshot bot is running on Render!"
+
+@app.route("/run")
+def run_screenshot():
+    threading.Thread(target=tarefa_diaria).start()
+    return "🚀 Screenshot task started!"
+
+if __name__ == "__main__":
+    # Inicia o servidor Flask que o Render precisa
+    app.run(host="0.0.0.0", port=10000)
+
 # === TELEGRAM CONFIG ===
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
